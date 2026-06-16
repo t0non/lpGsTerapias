@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 
 <head>
-  <!-- GA4 GS Terapias - Domain Locked -->
+  <!-- GTM + GA4 GS Terapias - Domain Locked -->
   <script>
     (function () {
       var allowedHosts = ["gsterapias.com.br", "www.gsterapias.com.br"];
@@ -13,25 +13,27 @@
         return;
       }
 
-      var GA_ID = "G-CXTG5GSBYC";
-
+      // Inicializa dataLayer e carrega o GTM
       window.dataLayer = window.dataLayer || [];
-      window.gtag = function () {
-        window.dataLayer.push(arguments);
-      };
+      window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
 
-      var script = document.createElement("script");
-      script.async = true;
-      script.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+      var gtmScript = document.createElement("script");
+      gtmScript.async = true;
+      gtmScript.src = "https://www.googletagmanager.com/gtm.js?id=GTM-MDR45FNJ";
+      document.head.appendChild(gtmScript);
 
-      script.onload = function () {
+      // Carrega também o GA4 diretamente
+      var GA_ID = "G-CXTG5GSBYC";
+      window.gtag = function () { window.dataLayer.push(arguments); };
+
+      var ga4Script = document.createElement("script");
+      ga4Script.async = true;
+      ga4Script.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+      ga4Script.onload = function () {
         window.gtag("js", new Date());
-        window.gtag("config", GA_ID, {
-          send_page_view: true
-        });
+        window.gtag("config", GA_ID, { send_page_view: true });
       };
-
-      document.head.appendChild(script);
+      document.head.appendChild(ga4Script);
     })();
   </script>
 
@@ -240,6 +242,8 @@
 </head>
 
 <body>
+  <!-- GTM noscript fallback -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDR45FNJ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 
